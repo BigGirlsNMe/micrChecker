@@ -16,7 +16,8 @@ def drawLines(linePos, img):
 frontCheckImg = 'purp.jpeg'
 #open image	
 img = Image.open(frontCheckImg)
-# (0,0) coordinate in imagedraw begins in top left corner of image. since ansi x9 standards place amount status delimeters from right edge of check, we subtract the difference of the standars from the width of the check to get the appropriate placement of our delimeter
+# (0,0) coordinate in imagedraw begins in top left corner of image. since ansi x9 standards place amount status delimeters from right edge
+#of check, we subtract the difference of the standars from the width of the check to get the appropriate placement of our delimeter
 amountStatusDelStart = img.width - 35 #this 35 will be from ansi standards
 amountStatusDelEnd = img.width - 55 #this 55 is also a sample 
 # assign image to new variable for manipulation
