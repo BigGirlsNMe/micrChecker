@@ -10,8 +10,6 @@ from PIL import Image, ImageDraw
 # inches * dpi = pixels
 #4.250'' * 200 dpi = 850 pixels - end of routing field delimeter
 #5.750'' * 200dpi = 1150 pixels - start of routing field delimeter
-
-
 #4.250'' * 200 dpi = 850 pixels - start of on us field delimeter
 # 1.875'' * 200dpi = 375 pixels - end of on us field delimeter
 
@@ -30,10 +28,7 @@ frontCheckImg = 'custtest.tiff'
 # assign image to new variable for manipulation
 
 
-#this is a testing image
-#frontCheckImg = 'purp.jpeg'
-
-#open image	and print some image details
+#open image and print some image details
 img = Image.open(frontCheckImg)
 new_img = img
 print("Format of image = " + img.format + "\nMode of Image = " + img.mode + "\nDPI = ")
