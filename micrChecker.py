@@ -1,16 +1,20 @@
 #these are imports of imaging libraries to manipulate check image
 from PIL import Image, ImageDraw
 
-#C = Transit Symbol4.2
-#P = On Us Symbol 
-#/ = amount symbol
-#- = dash symbol
+# Legend
+# C = Transit Symbol 4.2
+# P = On Us Symbol 
+# / = amount symbol
+# - = dash symbol
 # DPI always 200 for best binarized image
 # pixels / dpi = inches
 # inches * dpi = pixels
-#4.250'' * 200 dpi = 850 pixels - end of routing field delimeter
-#5.750'' * 200dpi = 1150 pixels - start of routing field delimeter
-#4.250'' * 200 dpi = 850 pixels - start of on us field delimeter
+# Business checks
+# 4.250'' * 200 dpi = 850 pixels - end of routing field delimeter
+# 5.750'' * 200dpi = 1150 pixels - start of routing field delimeter
+# Personal Check cut off
+# 1205 pixels = maximum allowance for personal check
+# 4.250'' * 200 dpi = 850 pixels - start of on us field delimeter
 # 1.875'' * 200dpi = 375 pixels - end of on us field delimeter
 
 def drawLines(linePos, img):
@@ -21,16 +25,15 @@ def drawLines(linePos, img):
 	#PIL.ImageDraw.ImageDraw.line(xy, fill=None, width=0, joint=None)
 	#draw.line((linePos, 0,linePos,img.height),fill='blue',width=5)
 	draw.line((linePos, 0,linePos,img.height),(0),width=1)
+	#draw.text((linePos+2),0, img.filename)
 
-#this is a sample check image this needs to be in the same folder as this script
-frontCheckImg = 'custtest.tiff'
-#frontCheckImg = 'mdtestimg.tiff'
+#check image this needs to be in the same folder as this script
+#frontCheckImg = 'custtest.tiff'
+frontCheckImg = 'mdtestimg.tiff'
 # assign image to new variable for manipulation
 
-
-#open image and print some image details
+#open image	and print some image details
 img = Image.open(frontCheckImg)
-new_img = img
 print("Format of image = " + img.format + "\nMode of Image = " + img.mode + "\nDPI = ")
 print(img.info['dpi'])
 
@@ -39,33 +42,29 @@ print(img.info['dpi'])
 #create delimeters in different locationd depending on size of check
 
 
-#if (img.width > business check) # check if business check 
-routingFieldDelStart = img.width - 1150 
-routingFieldDelEnd = img.width - 850 
-onUsFieldDelStart = img.width - 850
-onUSFieldDelEnd = img.width - 375
-	#drawLines(routingFieldDelStart,new_img)
-	#drawLines(routingFieldDelEnd,new_img)
-	#if (img.width>8.750'')
-	#print(check is out of spec too wide)
-#
-#
+if img.width > 1205: # check if business check and set appropriate delimeter placement for lines
+	routingFieldDelStart = img.width - 1150 
+	routingFieldDelEnd = img.width - 850 
+	onUsFieldDelStart = img.width - 850
+	onUSFieldDelEnd = img.width - 375
+		
+else:
+	print('toosmallforbiz') #default to personal check size if image smaller than 1205 pixels. 
+	routingFieldDelStart = img.width - 950#bad numbers all in her for personal check size  
+	routingFieldDelEnd = img.width - 650 
+	onUsFieldDelStart = img.width - 650
+	onUSFieldDelEnd = img.width - 175
 
-#if (img.width = personal check) # default to personal as md classifies smallers business checks as personal
-	#whatever logic for personal check
-	#routingFieldDelStart = img.width - 505 #this 35 will be from ansi standards
-	#routingFieldDelEnd = img.width - 1005 #this 55 is also a sample  size in pixels
-	#drawLines(routingFieldDelStart,new_img)
-	#drawLines(routingFieldDelEnd,new_img)
-
-drawLines(routingFieldDelStart,new_img)
-drawLines(routingFieldDelEnd,new_img)
-drawLines(onUSFieldDelEnd, new_img)
-drawLines(onUsFieldDelStart, new_img)
+#drawlines	
+drawLines(routingFieldDelStart,img)
+drawLines(routingFieldDelEnd,img)
+drawLines(onUSFieldDelEnd, img)
+drawLines(onUsFieldDelStart, img)		
+		
 #show the image with default os imageviewer
-new_img.show()
+img.show()
 #save the new image to jpeg called DrawnOn
-new_img.save('DrawnOn.jpeg' ,'jpeg')
+img.save('DrawnOn.jpeg' ,'jpeg')
 
 	
 
