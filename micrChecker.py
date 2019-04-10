@@ -40,10 +40,12 @@ canvas.pack(padx=10, pady=10)
 def openFileExplore():
 	file = tkFileDialog.askopenfile(parent=top,mode='rb',title='select best binarized image')
 	if file != None:
-		data = ImageDraw.Draw(file)
-		
+		data = file.read()	
+		im = Image.open(file)	
 		file.close()
 		print "i got %d bytes from this file " % len(data)
+		print "test" + im.format
+		return im
 
 #frame = Tkinter.Frame(width = img.width, height = img.height, bg = "")
 B = Tkinter.Button (top, text = 'Browse files', command = openFileExplore)
