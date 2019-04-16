@@ -57,9 +57,7 @@ def checkSize(img):
 def drawLines(linePos, img):
 	print "drawing line on image at",linePos,"pixels"
 	#open new imagedraw library for image manipulate on img variable passed to method
-	#=======================================
 	draw = ImageDraw.Draw(img)
-	#=======================================
 	#Parameters for Drawline
 	#(xy coordninates of start, xy coordinates of end), ink, width
 	#PIL.ImageDraw.ImageDraw.line(xy, fill=None, width=0, joint=None)
@@ -67,16 +65,19 @@ def drawLines(linePos, img):
 	#green color lines
 	draw.line((linePos, 0,linePos,img.height),(0,128,0),width=2)
 	#======================================================
+	#Trying to write text describing each delimeter
 	#draw.text((linePos+2),0, img.filename)
 	return
-	
+
+#=================================================================================
+# just a method to convert to RGB format for better image manipulation
 def convertToRGB(img):
 		imgRgb = img.convert("RGB")
 		return imgRgb
 		
 		
 		
-		
+#=====================================================================================		
 #TODO need to fill out this method		does not work!!!
 def saveImage():
 	fout = tkFileDialog.asksaveasfile(mode='w', defaultextension=".tiff")
@@ -91,11 +92,9 @@ def saveImage():
 # Creating Initializing UI components like title and app size
 top = Tkinter.Tk()
 top.title("micrChecker")
-#top.geometry('600x750')
+#top.geometry('600x750') probably not needed now
 buttonFrame = Tkinter.Frame(top)
 canvasFrame = Tkinter.Frame(top)
-#=========================
-
 #=============================================================================
 #open file explorer to select best binarized image from file explorer
 def openFileExplore():
@@ -103,18 +102,15 @@ def openFileExplore():
 	if file != None:
 		img = Image.open(file)
 		print"***Original Images Information***\nFormat of image = " ,img.format , "\nMode of Image = " , img.mode , "\nDPI = ", img.info['dpi']
-		#==============================================
-		#displays image on cavas and sets image open to global variable		
+		#checks if file selected is null and displays image on cavas and sets image open to global variable		
 		displayOnCanvas(img)
 		global ogImgGlobal
 		ogImgGlobal = img
-		#=========== sample returning for test
 		file.close()
 		return 
 		
-		
 #============================================================
-#display to BottomSLopply redo
+#display to Bottom canvas. this is slopply and should redo
 def displayOnBottom(img):
 	print"Displaying altered image to bottom canvas"
 	imgSize = img.resize((425,175),Image.ANTIALIAS)
