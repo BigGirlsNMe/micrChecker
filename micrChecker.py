@@ -21,9 +21,12 @@ import sys
 #==============================================================
 # create delimeters with different parameters depending on size of check
 # variables set for business check
-
+#================================================================================
+#setting up global variables
 ogImgGlobal = None
 ogImgAltered = None
+
+#==========================================================
 # (0,0) coordinate in imagedraw begins in top left corner of image. since ansi x9 standards place amount status delimeters from right edge of check, we subtract the difference of the standars from the width of the check to get the appropriate placement of our delimeter
 
 def checkSize(img):
@@ -53,7 +56,7 @@ def checkSize(img):
 	img.save("Test.jpeg","jpeg")
 	return img
 #==============================================================================
-#Draw lines handled in this method
+#Drawing actual lines handled in this method
 def drawLines(linePos, img):
 	print "drawing line on image at",linePos,"pixels"
 	#open new imagedraw library for image manipulate on img variable passed to method
@@ -75,10 +78,9 @@ def convertToRGB(img):
 		imgRgb = img.convert("RGB")
 		return imgRgb
 		
-		
-		
+				
 #=====================================================================================		
-#TODO need to fill out this method		does not work!!!
+#TODO need to fill out this method does not work!!!
 def saveImage():
 	fout = tkFileDialog.asksaveasfile(mode='w', defaultextension=".tiff")
 	text2save = str(self.text.get(0.0,END))
