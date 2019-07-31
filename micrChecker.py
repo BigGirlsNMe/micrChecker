@@ -1,4 +1,5 @@
 #these are imports of imaging libraries to manipulate check image
+#MADE BY KING RYAN!!!!!!!!
 from PIL import Image, ImageDraw, ImageTk
 import Tkinter, tkFileDialog
 import sys
